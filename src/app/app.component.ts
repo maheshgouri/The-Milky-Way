@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule} from '@angular/forms'
 
 export class Planet {
-  orbit = number;
-  name = string;
+  orbit: number
+  name: string
 }
 
 @Component({
@@ -13,27 +13,31 @@ export class Planet {
 
 <h2>Our Planets</h2>
 <ul class="heroes">
-<li *ngFor="let planet of planets">
+<li *ngFor="let planet of planets" [class.selected]="planet === selectedPlanet" (click)="onSelect(planet)">
 <span class="badge">
-<label>{{planet.orbit}}</label></span>: {{planet.name}}
+<label>{{planet.orbit}}:</label></span> {{planet.name}}
 </li>
 </ul>
 
-<h2>I am {{planet.name}}!</h2>
-<div><label>Orbit: </label>{{planet.orbit}}</div>
+<div *ngIf="selectedPlanet">
+<h2>I am {{selectedPlanet.name}}!</h2>
+<div><label>Orbit: </label>{{selectedPlanet.orbit}}</div>
 <div>
-<label>Name: </label>
-<input [(ngModel)]="planet.name" placeholder="Name">
+<label>Name: </label>{{selectedPlanet.name}}
+</div>
 </div>
 `
 })
 export class AppComponent  {
   heading = 'The Milky Way';
   planets = PLANETS;
-  planet: Planet = {
-    orbit: 3,
-    name: 'Earth'
-  };
+// null or undefined
+  selectedPlanet: Planet;
+
+  onSelect(planet: Planet): void{
+    this.selectedPlanet = planet;
+    console.log(planet);
+  }
 }
 const PLANETS: Planet[] = [
   {orbit: 1, name: 'Mercury'},
@@ -46,5 +50,5 @@ const PLANETS: Planet[] = [
   {orbit: 8, name: 'Neptune'},
   {orbit: 9, name: 'Pluto'},
 
-];
+]
 
