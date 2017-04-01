@@ -1,17 +1,8 @@
 import { Component } from '@angular/core';
 import { Planet } from './planet';
+import { PlanetService } from './planet-service';
+import { OnInit } from '@angular/core';
 
-const PLANETS: Planet[] = [
-  {orbit: 1, name: 'Mercury'},
-  {orbit: 2, name: 'Venus'},
-  {orbit: 3, name: 'Earth'},
-  {orbit: 4, name: 'Mars'},
-  {orbit: 5, name: 'Jupiter'},
-  {orbit: 6, name: 'Saturn'},
-  {orbit: 7, name: 'Uranus'},
-  {orbit: 8, name: 'Neptune'},
-  {orbit: 9, name: 'Pluto'}
-]
 
 @Component({
   selector: 'my-app',
@@ -26,15 +17,27 @@ const PLANETS: Planet[] = [
 </ul>
 
 <planet-detail [planet]="selectedPlanet"></planet-detail>
-`
+`,
+  providers: [ PlanetService ]
 })
-export class AppComponent  {
+
+export class AppComponent implements OnInit{
   heading = 'The Milky Way';
-  planets = PLANETS;
-// null or undefined
+  planets = Planet[];
   selectedPlanet: Planet;
+
+  constructor(private planetService: PlanetService){}
+
+  getPlanets(): void  {
+  this.planets = this.planetService.getPlanets();
+  }
+
+  ngOnInit(): void{
+  this.getPlanets()
+  }
 
   onSelect(planet: Planet): void{
     this.selectedPlanet = planet;
   }
+
 }
