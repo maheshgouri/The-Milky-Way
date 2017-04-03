@@ -1,4 +1,4 @@
 export class Planet {
-  orbit: number
-  name: string
+  orbit: number;
+  name: string;
 }
