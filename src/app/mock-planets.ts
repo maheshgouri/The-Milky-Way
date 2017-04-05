@@ -10,4 +10,4 @@ export const PLANETS: Planet[] = [
   {orbit: 7, name: 'Uranus'},
   {orbit: 8, name: 'Neptune'},
   {orbit: 9, name: 'Pluto'}
-]
+];

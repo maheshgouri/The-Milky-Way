@@ -9,7 +9,7 @@ import { PlanetService } from './planet-service';
 <h1>{{heading}}</h1>
 <h2>Our Planets</h2>
 <ul class="heroes">
-<li *ngFor="let planet of _planets" [class.selected]="planet === selectedPlanet" (click)="onSelect(planet)">
+<li *ngFor="let planet of planets" [class.selected]="planet === selectedPlanet" (click)="onSelect(planet)">
 <span class="badge">
 <label>{{planet.orbit}}:</label></span> {{planet.name}}
 </li>
@@ -21,16 +21,14 @@ import { PlanetService } from './planet-service';
 })
 
 export class AppComponent implements OnInit{
-  private heading = 'The Milky Way';
-  private _planets:Planet[];
-  private selectedPlanet: Planet;
+  heading = 'The Milky Way';
+  planets: Planet[];
+  selectedPlanet: Planet;
 
-  constructor(private planetService: PlanetService){}
+  constructor(private planetService: PlanetService) { }
 
   getPlanets(): void  {
-    this.planetService.getPlanets().then((planets) => {
-      this._planets = planets;
-    });
+    this.planetService.getPlanets().then(planets => this.planets = planets)
   }
 
   ngOnInit(): void{
